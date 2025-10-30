@@ -1,33 +1,31 @@
 import React, { useState, useEffect } from "react";
 import { View, FlatList } from "react-native";
 import { Text, Button, Card, FAB } from "react-native-paper";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
-import { Counter } from "./types";
+import { Counter } from "../common/types";
 import {
   SafeAreaView,
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
+import storage from "../common/storage";
+import Path from "../common/path";
 
-// Main screen (list of counters).
 export default function HomeScreen() {
   const router = useRouter();
   const [counters, setCounters] = useState<Counter[]>([]);
 
   const insets = useSafeAreaInsets();
 
-  // Load counters from storage
   useEffect(() => {
     (async () => {
-      const stored = await AsyncStorage.getItem("counters");
-      if (stored) setCounters(JSON.parse(stored));
+      const counters = await storage.getCounters();
+      setCounters(counters);
     })();
   }, []);
 
-  // Save counters to storage
   const saveCounters = async (newCounters: Counter[]) => {
     setCounters(newCounters);
-    await AsyncStorage.setItem("counters", JSON.stringify(newCounters));
+    storage.setCounters(newCounters);
   };
 
   const increment = (id: string) =>
@@ -43,6 +41,9 @@ export default function HomeScreen() {
   const reset = (id: string) =>
     saveCounters(counters.map((c) => (c.id === id ? { ...c, count: 0 } : c)));
 
+  const remove = (id: string) =>
+    saveCounters(counters.filter((c) => c.id !== id));
+
   return (
     <SafeAreaView style={{ flex: 1, padding: 10 }}>
       <FlatList
@@ -56,6 +57,7 @@ export default function HomeScreen() {
               <Button onPress={() => increment(item.id)}>+1</Button>
               <Button onPress={() => decrement(item.id)}>-1</Button>
               <Button onPress={() => reset(item.id)}>Reset</Button>
+              <Button onPress={() => remove(item.id)}>Remove</Button>
             </View>
           </Card>
         )}
@@ -67,7 +69,7 @@ export default function HomeScreen() {
           right: 16,
           bottom: insets.bottom + 16, // pushes above navigation bar
         }}
-        onPress={() => router.push("/add")}
+        onPress={() => router.push(Path.Add)}
       />
     </SafeAreaView>
   );

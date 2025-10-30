@@ -2,27 +2,16 @@ import React, { useState } from "react";
 import { View, TextInput } from "react-native";
 import { Text, Button } from "react-native-paper";
 import { useRouter } from "expo-router";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Counter } from "./types";
+import storage from "../common/storage";
+import Path from "../common/path";
 
-// Add Counter screen.
 export default function AddScreen() {
   const router = useRouter();
   const [name, setName] = useState("");
 
   const addCounter = async () => {
-    const stored = await AsyncStorage.getItem("counters");
-    const counters: Counter[] = stored ? JSON.parse(stored) : [];
-    const newCounter: Counter = {
-      id: Date.now().toString(),
-      name,
-      count: 0,
-    };
-    await AsyncStorage.setItem(
-      "counters",
-      JSON.stringify([...counters, newCounter])
-    );
-    router.back(); // go back to main screen
+    await storage.addCounter(name);
+    router.replace(Path.Home);
   };
 
   return (
@@ -49,7 +38,10 @@ export default function AddScreen() {
       <Button mode="contained" onPress={addCounter} disabled={!name}>
         Add
       </Button>
-      <Button onPress={() => router.back()} style={{ marginTop: 10 }}>
+      <Button
+        onPress={() => router.replace(Path.Home)}
+        style={{ marginTop: 10 }}
+      >
         Cancel
       </Button>
     </View>
