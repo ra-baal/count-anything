@@ -6,9 +6,13 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "cap:sync": "npx cap copy",
+    "android": "npm run build && npx cap copy android && npx cap open android"
   },
   "dependencies": {
+    "@capacitor/cli": "^7.4.4",
+    "@capacitor/core": "^7.4.4",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@mui/icons-material": "^6.1.0",
@@ -18,6 +22,7 @@
     "react-router-dom": "^6.15.0"
   },
   "devDependencies": {
+    "@capacitor/android": "^7.4.4",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "@vitejs/plugin-react": "^5.1.1",
