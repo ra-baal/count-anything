@@ -5,7 +5,7 @@ export default defineConfig({
   base: "./", // relative paths for Capacitor (file://)
   plugins: [react()],
   server: {
-    port: 5173, // dev server port
+    port: Number(process.env.PORT) || 5173,
     open: true, // open browser on start
   },
   build: {
