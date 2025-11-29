@@ -16,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 import type { Counter } from "../common/types";
 import storage from "../common/storage";
 import Path from "@/common/path";
+import { FullPageTemplate } from "@/components/templates/FullPageTemplate";
 
 export default function CountersPage() {
   const navigate = useNavigate();
@@ -48,13 +49,7 @@ export default function CountersPage() {
     saveCounters(counters.filter((c) => c.id !== id));
 
   return (
-    <>
-      <AppBar position="static">
-        <Toolbar>
-          <Typography variant="h6">Count Anything</Typography>
-        </Toolbar>
-      </AppBar>
-
+    <FullPageTemplate title={"Count Anything"}>
       <Container sx={{ mt: 3, mb: 10 }}>
         {counters.map((item) => (
           <Card key={item.id} sx={{ mb: 2 }}>
@@ -87,6 +82,6 @@ export default function CountersPage() {
           <AddIcon />
         </Fab>
       </Box>
-    </>
+    </FullPageTemplate>
   );
 }
