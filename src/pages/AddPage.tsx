@@ -11,6 +11,9 @@ import {
 } from "@mui/material";
 import storage from "../common/storage";
 import Path from "@/common/path";
+import PrimaryButton from "@/components/atoms/PrimaryButton";
+import { SecondaryButton } from "@/components/atoms/SecondaryButton";
+import { FullPageTemplate } from "@/components/templates/FullPageTemplate";
 
 export default function AddPage() {
   const navigate = useNavigate();
@@ -22,13 +25,7 @@ export default function AddPage() {
   };
 
   return (
-    <>
-      <AppBar position="static">
-        <Toolbar>
-          <Typography variant="h6">Add Counter</Typography>
-        </Toolbar>
-      </AppBar>
-
+    <FullPageTemplate title="Add Counter">
       <Container
         maxWidth="sm"
         sx={{
@@ -38,10 +35,6 @@ export default function AddPage() {
           alignItems: "center",
         }}
       >
-        <Typography variant="h5" gutterBottom>
-          Add New Counter
-        </Typography>
-
         <Stack spacing={2} sx={{ width: "100%", mt: 2 }}>
           <TextField
             label="Counter Name"
@@ -51,22 +44,18 @@ export default function AddPage() {
             fullWidth
           />
 
-          <Button
-            variant="contained"
+          <PrimaryButton
             onClick={addCounter}
             disabled={!name.trim()}
-          >
-            Add
-          </Button>
+            text="Add"
+          />
 
-          <Button
-            variant="text"
+          <SecondaryButton
+            text={"Cancel"}
             onClick={() => navigate("/", { replace: true })}
-          >
-            Cancel
-          </Button>
+          />
         </Stack>
       </Container>
-    </>
+    </FullPageTemplate>
   );
 }

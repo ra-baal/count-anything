@@ -6,8 +6,8 @@ import AddPage from "./pages/AddPage";
 import CountersPage from "./pages/CountersPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
-import RemindPasswordPage from "./pages/RemindPasswordPage";
 import Path from "./common/path";
+import ResetPasswordPage from "./pages/ResetPasswordPage";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -18,7 +18,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <Route path={Path.Add} element={<AddPage />} />
         <Route path={Path.Login} element={<LoginPage />} />
         <Route path={Path.Register} element={<RegisterPage />} />
-        <Route path={Path.RemindPassword} element={<RemindPasswordPage />} />
+        <Route path={Path.ResetPassword} element={<ResetPasswordPage />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

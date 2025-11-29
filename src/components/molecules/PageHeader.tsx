@@ -2,7 +2,7 @@ import { Typography, Box } from "@mui/material";
 
 interface PageHeaderProps {
   title: string;
-  subtitle: string;
+  subtitle?: string;
 }
 
 export default function PageHeader({ title, subtitle }: PageHeaderProps) {
@@ -19,16 +19,17 @@ export default function PageHeader({ title, subtitle }: PageHeaderProps) {
       >
         {title}
       </Typography>
-      <Typography
-        variant="body1"
-        sx={{
-          color: "#666",
-          fontSize: "0.95rem",
-        }}
-      >
-        {subtitle}
-      </Typography>
+      {subtitle && (
+        <Typography
+          variant="body1"
+          sx={{
+            color: "#666",
+            fontSize: "0.95rem",
+          }}
+        >
+          {subtitle}
+        </Typography>
+      )}
     </Box>
   );
 }
-
