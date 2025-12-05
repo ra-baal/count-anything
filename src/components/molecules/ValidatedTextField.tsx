@@ -21,7 +21,8 @@ export default function ValidatedTextField({
             borderColor: isValid && showValidation ? "#4caf50" : "#1976d2",
           },
           "& fieldset": {
-            borderColor: isValid && showValidation ? "#4caf50" : "rgba(0, 0, 0, 0.23)",
+            borderColor:
+              isValid && showValidation ? "#4caf50" : "rgba(0, 0, 0, 0.23)",
           },
         },
       }}
@@ -39,4 +40,3 @@ export default function ValidatedTextField({
     />
   );
 }
-

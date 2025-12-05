@@ -1,11 +1,11 @@
 import { ReactNode } from "react";
 import { Box, Card } from "@mui/material";
 
-interface FormCardProps {
+interface BoxCardProps {
   children: ReactNode;
 }
 
-export default function FormCard({ children }: FormCardProps) {
+export default function BoxCard({ children }: BoxCardProps) {
   return (
     <Box
       sx={{
@@ -31,4 +31,3 @@ export default function FormCard({ children }: FormCardProps) {
     </Box>
   );
 }
-
