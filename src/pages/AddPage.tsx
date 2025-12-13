@@ -1,26 +1,19 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  AppBar,
-  Toolbar,
-  Typography,
-  Container,
-  TextField,
-  Button,
-  Stack,
-} from "@mui/material";
-import storage from "../common/storage";
+import { Container, TextField, Stack } from "@mui/material";
 import Path from "@/common/path";
 import PrimaryButton from "@/components/atoms/PrimaryButton";
 import { SecondaryButton } from "@/components/atoms/SecondaryButton";
 import { FullPageTemplate } from "@/components/templates/FullPageTemplate";
+import { useCreateCounter } from "@/api/counters/hooks";
 
 export default function AddPage() {
   const navigate = useNavigate();
   const [name, setName] = useState("");
+  const create = useCreateCounter();
 
   const addCounter = () => {
-    storage.addCounter(name);
+    create.mutate(name);
     navigate(Path.Counters, { replace: true });
   };
 
