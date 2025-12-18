@@ -1,52 +1,48 @@
 import { Stack, Alert } from "@mui/material";
-import PageHeader from "@/components/molecules/PageHeader";
 import ValidatedTextField from "@/components/molecules/ValidatedTextField";
 import PrimaryButton from "@/components/atoms/PrimaryButton";
 import FormFooter from "@/components/molecules/FormFooter";
 import Path from "@/common/path";
-import { useAuthForm } from "@/hooks/useAuthForm";
+import { minPasswordLength, useAuthForm } from "@/hooks/useAuthForm";
 
 interface RegisterFormOrganismProps {
   onSubmit: (data: { email: string; password: string }) => void;
-  onSuccess: () => void;
+  message?: string;
 }
 
 export default function RegisterFormOrganism({
   onSubmit,
-  onSuccess,
+  message,
 }: RegisterFormOrganismProps) {
   const {
     email,
     password,
     confirmPassword,
     error,
-    isEmailValid,
-    isPasswordValid,
-    isConfirmPasswordValid,
     canSubmit,
     setEmail,
     setPassword,
     setConfirmPassword,
-    setError,
     validateForm,
   } = useAuthForm({ mode: "register" });
 
-  function handleRegister() {
+  const alertMessage = message || error;
+
+  function submit() {
     if (!validateForm()) return;
     onSubmit({ email, password });
-    onSuccess();
   }
 
-  function handleKeyDown(event: React.KeyboardEvent) {
-    if (event.key === "Enter") handleRegister();
+  function enterSubmit(event: React.KeyboardEvent) {
+    if (event.key === "Enter") submit();
   }
 
   return (
     <Stack spacing={3}>
       <Stack spacing={2.5}>
-        {error && (
+        {alertMessage && (
           <Alert severity="error" sx={{ borderRadius: 2 }}>
-            {error}
+            {alertMessage}
           </Alert>
         )}
 
@@ -55,11 +51,9 @@ export default function RegisterFormOrganism({
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          onKeyDown={handleKeyDown}
-          fullWidth
+          onKeyDown={enterSubmit}
           required
           autoComplete="email"
-          isValid={isEmailValid}
         />
 
         <ValidatedTextField
@@ -67,12 +61,10 @@ export default function RegisterFormOrganism({
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          onKeyDown={handleKeyDown}
-          fullWidth
+          onKeyDown={enterSubmit}
           required
           autoComplete="new-password"
-          helperText="Minimum 6 characters"
-          isValid={isPasswordValid}
+          helperText={`Co najmniej ${minPasswordLength} znaków`}
         />
 
         <ValidatedTextField
@@ -80,18 +72,12 @@ export default function RegisterFormOrganism({
           type="password"
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
-          onKeyDown={handleKeyDown}
-          fullWidth
+          onKeyDown={enterSubmit}
           required
           autoComplete="new-password"
-          isValid={isConfirmPasswordValid}
         />
 
-        <PrimaryButton
-          onClick={handleRegister}
-          disabled={!canSubmit}
-          text="Sign up"
-        />
+        <PrimaryButton onClick={submit} disabled={!canSubmit} text="Sign up" />
       </Stack>
 
       <FormFooter

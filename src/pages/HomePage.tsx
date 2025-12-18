@@ -11,6 +11,9 @@ export default function HomePage() {
       <div>
         <Link to={Path.Login}>Login Page</Link>
       </div>
+      <div>
+        <Link to={Path.Register}>Register Page</Link>
+      </div>
     </div>
   );
 }

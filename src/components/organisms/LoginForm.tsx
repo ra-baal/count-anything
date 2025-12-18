@@ -1,4 +1,4 @@
-import { Stack, Box } from "@mui/material";
+import { Stack, Box, Link as MuiLink } from "@mui/material";
 import { Link } from "react-router-dom";
 import ValidatedTextField from "@/components/molecules/ValidatedTextField";
 import PrimaryButton from "@/components/atoms/PrimaryButton";
@@ -11,23 +11,16 @@ interface LoginFormProps {
 }
 
 export default function LoginForm({ onSubmit }: LoginFormProps) {
-  const {
-    email,
-    password,
-    isEmailValid,
-    canSubmit,
-    setEmail,
-    setPassword,
-    validateForm,
-  } = useAuthForm({ mode: "login" });
+  const { email, password, canSubmit, setEmail, setPassword, validateForm } =
+    useAuthForm({ mode: "login" });
 
-  function handleLogin() {
+  function submit() {
     if (!validateForm()) return;
     onSubmit({ email, password });
   }
 
-  function handleKeyDown(event: React.KeyboardEvent) {
-    if (event.key === "Enter") handleLogin();
+  function onEnter(event: React.KeyboardEvent) {
+    if (event.key === "Enter") submit();
   }
 
   return (
@@ -38,11 +31,9 @@ export default function LoginForm({ onSubmit }: LoginFormProps) {
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          onKeyDown={handleKeyDown}
-          fullWidth
+          onKeyDown={onEnter}
           required
           autoComplete="email"
-          isValid={isEmailValid}
         />
 
         <ValidatedTextField
@@ -50,31 +41,25 @@ export default function LoginForm({ onSubmit }: LoginFormProps) {
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          onKeyDown={handleKeyDown}
-          fullWidth
+          onKeyDown={onEnter}
           required
           autoComplete="current-password"
           showValidation={false}
         />
 
         <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-          <Link
+          <MuiLink
+            component={Link}
             to={Path.ResetPassword}
-            style={{
-              textDecoration: "none",
-              color: "#1976d2",
-              fontSize: "0.875rem",
-            }}
+            underline="hover"
+            fontSize="0.875rem"
+            color="primary"
           >
             Forgot password?
-          </Link>
+          </MuiLink>
         </Box>
 
-        <PrimaryButton
-          onClick={handleLogin}
-          disabled={!canSubmit}
-          text="Log in"
-        />
+        <PrimaryButton onClick={submit} disabled={!canSubmit} text="Log in" />
       </Stack>
 
       <FormFooter
