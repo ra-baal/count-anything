@@ -3,12 +3,6 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 export default function HomePage() {
-  useEffect(() => {
-    fetch("http://localhost:3000/test", {
-      method: "POST",
-      credentials: "include",
-    });
-  }, []);
 
   return (
     <div>
