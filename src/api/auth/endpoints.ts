@@ -27,7 +27,7 @@ export async function authLogin(request: LoginRequest): Promise<LoginResponse> {
 }
 
 export async function authLogout(): Promise<ApiResponse<void>> {
-  const response = await fetchGet("/auth/logout");
+  const response = await fetchPost("/auth/logout");
 
   if (!response.ok) {
     const error: ApiResponseError = await response.json();
