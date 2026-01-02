@@ -18,7 +18,7 @@ export default function AddPage() {
   };
 
   return (
-    <FullPageTemplate title="Add Counter">
+    <FullPageTemplate title="Nowy licznik">
       <Container
         maxWidth="sm"
         sx={{
@@ -30,7 +30,7 @@ export default function AddPage() {
       >
         <Stack spacing={2} sx={{ width: "100%", mt: 2 }}>
           <TextField
-            label="Counter Name"
+            label="Nazwa licznika"
             variant="outlined"
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -40,12 +40,12 @@ export default function AddPage() {
           <PrimaryButton
             onClick={addCounter}
             disabled={!name.trim()}
-            text="Add"
+            text="Dodaj"
           />
 
           <SecondaryButton
-            text={"Cancel"}
-            onClick={() => navigate("/", { replace: true })}
+            text={"Anuluj"}
+            onClick={() => navigate(Path.Counters, { replace: true })}
           />
         </Stack>
       </Container>
