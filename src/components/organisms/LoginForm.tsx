@@ -1,4 +1,4 @@
-import { Stack, Box, Link as MuiLink } from "@mui/material";
+import { Stack, Box, Link as MuiLink, Alert } from "@mui/material";
 import { Link } from "react-router-dom";
 import ValidatedTextField from "@/components/molecules/ValidatedTextField";
 import PrimaryButton from "@/components/atoms/PrimaryButton";
@@ -8,11 +8,19 @@ import { useAuthForm } from "@/hooks/useAuthForm";
 
 interface LoginFormProps {
   onSubmit: (data: { email: string; password: string }) => void;
+  message?: string;
 }
 
-export default function LoginForm({ onSubmit }: LoginFormProps) {
-  const { email, password, canSubmit, setEmail, setPassword, validateForm } =
-    useAuthForm({ mode: "login" });
+export default function LoginForm({ onSubmit, message }: LoginFormProps) {
+  const {
+    email,
+    password,
+    error,
+    canSubmit,
+    setEmail,
+    setPassword,
+    validateForm,
+  } = useAuthForm({ mode: "login" });
 
   function submit() {
     if (!validateForm()) return;
@@ -23,9 +31,17 @@ export default function LoginForm({ onSubmit }: LoginFormProps) {
     if (event.key === "Enter") submit();
   }
 
+  const alertMessage = message || error;
+
   return (
     <>
       <Stack spacing={3}>
+        {alertMessage && (
+          <Alert severity="error" sx={{ borderRadius: 2 }}>
+            {alertMessage}
+          </Alert>
+        )}
+
         <ValidatedTextField
           label="Email"
           type="email"

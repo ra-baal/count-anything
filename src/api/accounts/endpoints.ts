@@ -1,4 +1,6 @@
 import { buildApiUrl } from "@/utils/buildUrl";
+import { ApiResponseError } from "../_base/apiResponse";
+import { fetchPost } from "../_base/fetch";
 
 export type RegisterAccountInput = {
   email: string;
@@ -9,24 +11,13 @@ export type RegisterAccountResponse = {
   id: string;
 };
 
-export type ApiError = {
-  error: string;
-};
-
 export async function registerAccount(
   payload: RegisterAccountInput
 ): Promise<RegisterAccountResponse> {
-  const url = await buildApiUrl("/accounts/register");
-  const response = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(payload),
-  });
+  const response = await fetchPost("/accounts/register", payload);
 
   if (!response.ok) {
-    const error: ApiError = await response.json();
+    const error: ApiResponseError = await response.json();
     throw new Error(error.error);
   }
 

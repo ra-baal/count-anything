@@ -1,7 +1,15 @@
 import Path from "@/common/path";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 export default function HomePage() {
+  useEffect(() => {
+    fetch("http://localhost:3000/test", {
+      method: "POST",
+      credentials: "include",
+    });
+  }, []);
+
   return (
     <div>
       <div>Home Page</div>
@@ -13,6 +21,9 @@ export default function HomePage() {
       </div>
       <div>
         <Link to={Path.Register}>Register Page</Link>
+      </div>
+      <div>
+        <Link to={Path.Account}>Account Page</Link>
       </div>
     </div>
   );

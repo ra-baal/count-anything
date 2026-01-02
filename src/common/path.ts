@@ -5,6 +5,7 @@ const Path = {
   Login: "/login",
   Register: "/register",
   ResetPassword: "/reset-password",
+  Account: "/account",
 } as const;
 
 export default Path;
