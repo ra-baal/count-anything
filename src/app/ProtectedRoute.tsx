@@ -1,5 +1,6 @@
 import Path from "@/common/path";
 import { useAuth } from "@/hooks/useAuth";
+import { Box, CircularProgress } from "@mui/material";
 import { ReactNode } from "react";
 import { Navigate } from "react-router-dom";
 
@@ -8,13 +9,24 @@ interface ProtectedRouteProps {
 }
 
 export function ProtectedRoute({ children }: ProtectedRouteProps) {
-  const { data, isLoading, isError } = useAuth();
+  const auth = useAuth();
 
-  if (isLoading) {
-    return <div>Loading...</div>;
+  if (auth.isLoading) {
+    return (
+      <Box
+        sx={{
+          minHeight: "100dvh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
   }
 
-  if (isError || !data) {
+  if (!auth.isAuthenticated) {
     return <Navigate to={Path.Home} replace />;
   }
 

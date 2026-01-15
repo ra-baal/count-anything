@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Stack, Alert } from "@mui/material";
 
 import BoxCard from "@/components/molecules/BoxCard";
-import PageHeader from "@/components/molecules/PageHeader";
+import PageHeader from "@/components/organisms/PageHeader";
 import FormFooter from "@/components/molecules/FormFooter";
 import PrimaryButton from "@/components/atoms/PrimaryButton";
 import { SecondaryButton } from "@/components/atoms/SecondaryButton";

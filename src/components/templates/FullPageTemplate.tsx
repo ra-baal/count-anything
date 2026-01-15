@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { Stack } from "@mui/material";
-import PageHeader from "../molecules/PageHeader";
+import PageHeader from "../organisms/PageHeader";
 
 interface FullPageTemplateProps {
   children: ReactNode;
