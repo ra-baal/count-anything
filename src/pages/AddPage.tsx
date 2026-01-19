@@ -6,6 +6,7 @@ import PrimaryButton from "@/components/atoms/PrimaryButton";
 import { SecondaryButton } from "@/components/atoms/SecondaryButton";
 import { FullPageTemplate } from "@/components/templates/FullPageTemplate";
 import { useCreateCounter } from "@/api/counters/hooks";
+import { CardPageTemplate } from "@/components/templates/CardPageTemplate";
 
 export default function AddPage() {
   const navigate = useNavigate();
@@ -18,7 +19,12 @@ export default function AddPage() {
   };
 
   return (
-    <FullPageTemplate title="Nowy licznik">
+    // <FullPageTemplate title="Nowy licznik">
+    <CardPageTemplate
+      title="Nowy licznik"
+      showMenu={false}
+      goBackPath={Path.Counters}
+    >
       <Container
         maxWidth="sm"
         sx={{
@@ -49,6 +55,7 @@ export default function AddPage() {
           />
         </Stack>
       </Container>
-    </FullPageTemplate>
+      {/* </FullPageTemplate> */}
+    </CardPageTemplate>
   );
 }
