@@ -21,7 +21,11 @@ export default function HomePage() {
   };
 
   return (
-    <CardPageTemplate title="Count anything">
+    <CardPageTemplate
+      title="Count anything"
+      showMenu={false}
+      showGoBack={false}
+    >
       <Box
         sx={{
           display: "flex",

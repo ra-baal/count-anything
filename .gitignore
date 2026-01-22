@@ -37,3 +37,6 @@ Thumbs.db
 .idea/
 .vscode/
 *.orig.*
+~
+#AI
+.continue
